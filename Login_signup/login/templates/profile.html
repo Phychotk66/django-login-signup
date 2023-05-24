@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <h3> Profile pages {{ name }}</h3>
+    {% if user != None %}
+    <h3> List Of the User </h3>
+    {% for users in user %}
+    <a href="{% url 'user' users.id %}"> {{users.username}}</a><br><br>
+    
+     {% endfor %}
+    {% endif %}
+    <form action="" method="post">
+    {% csrf_token %}
+    {% if from.non_field.errors %}
+    {% for error in from.non_field_errors %}
+    {{ error }}
+    {% endfor %}
+    {% endif %}
+    {% for em in from %}
+    {{ em.label_tag}} {{em}} {{em.eroors | striptags}}<br> <br>
+    {% endfor %}
+    <input type="submit" value="Save">
+  </form>
+    <a href="{% url 'logout' %}"> Logout</a>
+    <a href="{% url 'changepassword' %}"> changepassword</a>
+</body>
+</html>
